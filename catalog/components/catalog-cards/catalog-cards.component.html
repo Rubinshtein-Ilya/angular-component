@@ -1,0 +1,42 @@
+
+<div class="card" *ngFor="let card of entities">
+    <div class="card__icon" [class.card__icon_round]="role === 0">
+        <img [src]="setAvatar(card.attributes.avatarUrl, role)" alt="agency icon">
+    </div>
+    <div class="card__content" (click)="redirectToSingleCard(card.id)">
+        <div class="card__heading">
+            <div class="card__company-title">
+                <img src="/assets/icons/catalog/shield_agency-status.svg" alt="status icon">
+                {{role === 0? card.attributes.firstname + ' ' + card.attributes.lastname: card.attributes.companyName}}
+            </div>
+            <div class="card__work-exp" *ngIf="role !== 2">
+                опыт работы с {{card.attributes.experience}} года
+            </div>
+        </div> 
+        <div class="card__info" *ngIf="role !== 2">
+            {{transformSkillsText(card.attributes.skills)}}
+        </div>
+        <div class="card__work-exp" *ngIf="role === 2">
+            Год создания: {{card.attributes.experience}} г.
+        </div>
+    </div>
+    <div class="card__extra-info" *ngIf="role !== 2">
+        <span class="card__objects">{{card.attributes.totalObjects}} объектов</span>
+        <span class="card__vacancies">{{card.attributes.vacanciesCount != 0? card.attributes.vacanciesCount + ' вакансии': ''}}</span>
+        <span class="card__placed">размещено</span>
+    </div>
+    <div class="card__builders-info" *ngIf="role === 2">
+        <div class="card__extra-info">
+            <span class="card__objects">{{card.attributes.recountOfBuilderObjects.living_complexes_uncompleted_count}} квартир</span>
+            <span class="card__placed">в продаже</span>
+        </div>
+        <div class="card__extra-info">
+            <span class="card__objects">{{card.attributes.recountOfBuilderObjects.buildings_uncompleted_count}} ЖК</span>
+            <span class="card__placed">строится</span>
+        </div>
+        <div class="card__extra-info">
+            <span class="card__objects">{{card.attributes.recountOfBuilderObjects.buildings_completed_count}} ЖК</span>
+            <span class="card__placed">сдано</span>
+        </div>
+    </div>
+</div>

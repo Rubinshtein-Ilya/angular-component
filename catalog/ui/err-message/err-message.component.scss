@@ -1,0 +1,28 @@
+.errors {
+    position: relative;
+    margin-top: -10px;
+    margin-bottom: -15px;
+
+    &__point {
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: rgb(255, 132, 100);
+        position: absolute;
+        top: -20px;
+        left: -10px;
+    }
+
+    &__point_textarea {
+        top: -70px;
+    }
+
+    &__message {
+        color: rgb(255, 132, 100);
+        font-size: 12px;
+
+    }
+}
+.errors-textarea {
+    margin-top: -20px;
+}

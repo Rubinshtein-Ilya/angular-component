@@ -1,0 +1,111 @@
+<cabinet-header></cabinet-header>
+
+<div class="catalog" *ngIf="isCatalogVisible">
+    <div class="catalog__wrapper">
+        <h3 class="catalog__heading">Каталог {{headingValues[role]}}</h3>
+        <div class="catalog__links">
+                <a routerLink="agency" routerLinkActive="active-link">Агентства</a>
+                <a routerLink="agents" routerLinkActive="active-link">Риелторы</a>
+                <a routerLink="builders" routerLinkActive="active-link">Застройщики</a>
+        </div>
+        <form class="catalog__filters" [formGroup]="form">
+           <!-- city -->
+           <div class="custom-select" (click)="showModal()">
+                <div class="select-trigger"></div>
+                
+                <div class="svg-box hovered" style="width: auto;" >
+                   {{region}}
+                </div>
+
+            </div>
+           <!-- specialization -->
+           <div class="custom-select">
+                <div class="select-trigger"></div>
+                <div class="svg-box" style="width: 222px;" (click)="showOptions()">
+                    Выберите специализацию
+                    <svg width="9.003906" height="5.001953" viewBox="0 0 9.00391 5.00195" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs/>
+                    <path id="Vector 9" d="M0.5 0.5L4.5 4.5L8.5 0.5" stroke="#292D31" stroke-opacity="1.000000" stroke-width="1.000000" stroke-linejoin="round" stroke-linecap="round"/>
+                    </svg>
+                </div>
+                <div class="options" [class.options_visible]="isOptions">
+                    <div class="options__column">
+                        <input type="checkbox" id="rent" class="options__checkbox" [value]="'rent'" (change)="onCheckboxChange($event)">
+                        <label for="rent">Аренда</label>
+                        <input type="checkbox" id="living-rent" class="options__checkbox" [value]="'living-rent'" (change)="onCheckboxChange($event)">
+                        <label for="living-rent" class="options__label">Жилая</label>
+                        <input type="checkbox" id="countryside-rent" class="options__checkbox" [value]="'countryside-rent'" (change)="onCheckboxChange($event)">
+                        <label for="countryside-rent" class="options__label">Загородная</label>
+                        <input type="checkbox" id="commerce-rent" class="options__checkbox" [value]="'commerce-rent'" (change)="onCheckboxChange($event)">
+                        <label for="commerce-rent" class="options__label">Коммерческая</label>
+                    </div>
+                    <div class="options__column">
+                        <input type="checkbox" id="sale" class="options__checkbox" [value]="'sale'" (change)="onCheckboxChange($event)">
+                        <label for="sale">Покупка и продажа</label>
+                        <input type="checkbox" id="living-sale" class="options__checkbox" [value]="'living-sale'" (change)="onCheckboxChange($event)">
+                        <label for="living-sale" class="options__label">Жилая</label>
+                        <input type="checkbox" id="countryside-sale" class="options__checkbox" [value]="'countryside-sale'" (change)="onCheckboxChange($event)">
+                        <label for="countryside-sale" class="options__label">Загородная</label>
+                        <input type="checkbox" id="commerce-sale" class="options__checkbox" [value]="'commerce-sale'" (change)="onCheckboxChange($event)">
+                        <label for="commerce-sale" class="options__label">Коммерческая</label>
+                    </div>
+                    <div class="options__column">
+                        <input type="checkbox" id="other" class="options__checkbox" [value]="'other'" (change)="onCheckboxChange($event)">
+                        <label for="other">Другое</label>
+                        <input type="checkbox" id="hypotec" class="options__checkbox" [value]="'hypotec'" (change)="onCheckboxChange($event)">
+                        <label for="hypotec" class="options__label">Ипотека</label>
+                        <input type="checkbox" id="management" class="options__checkbox" [value]="'management'" (change)="onCheckboxChange($event)">
+                        <label for="management" class="options__label">Управление объектами</label>
+                        <input type="checkbox" id="building" class="options__checkbox" [value]="'building'" (change)="onCheckboxChange($event)">
+                        <label for="building" class="options__label">Строительство</label>
+                    </div>
+                </div>
+            </div>
+          <!-- input -->
+           <input type="text" class="catalog__input" placeholder="Поиск по названию, id или телефону" formControlName="search">
+           <!-- btns -->
+            <button class="catalog__btn catalog__btn-black" (click)="loadComponentWithParams()">Найти</button>
+            <button class="catalog__btn" *ngIf="isCleanButton" (click)="resetForm()">Очистить</button>
+        </form>
+    </div>
+</div>
+
+<div class="overlay" *ngIf="isModal"></div>
+<div class="regions-modal" *ngIf="isModal">
+    <img src="/assets/icons/catalog/close.svg" alt="close button" class="regions-modal__close"  (click)="showModal()">
+    <div class="regions-modal__heading">Выбрать регион</div>
+    <div class="regions-modal__btns">
+        <input type="checkbox" id="moscow" class="regions-modal__checkbox" value="Москва">
+        <label for="moscow" class="regions-modal__label svg-box hovered" (click)="setRegion('Москва')">
+            Москва
+        </label>
+
+        <input type="checkbox" id="petersburg" class="regions-modal__checkbox" value="Санкт-Петербург">
+        <label for="petersburg" class="regions-modal__label svg-box hovered" (click)="setRegion('Санкт-Петербург')">
+            Санкт-Петербург
+        </label>
+
+        <input type="checkbox" id="kaliningrad" class="regions-modal__checkbox" value="Калининград">
+        <label  for="kaliningrad" class="regions-modal__label svg-box hovered" (click)="setRegion('Калининград')">
+            Калининград
+        </label>
+
+        <input type="checkbox" id="m-region" class="regions-modal__checkbox" value="Московская область">
+        <label for="m-region" class="regions-modal__label svg-box hovered" (click)="setRegion('Московская')">
+            Московская область
+        </label>
+
+        <input type="checkbox" id="l-region" class="regions-modal__checkbox" value="Ленинградская область">
+        <label for="l-region" class="regions-modal__label svg-box hovered" (click)="setRegion('Ленинградская')">
+            Ленинградская область
+        </label>
+
+        <input type="checkbox" id="k-region" class="regions-modal__checkbox" value="Калининградская область">
+        <label for="k-region" class="regions-modal__label svg-box hovered" (click)="setRegion('Калининградская')">
+            Калининградская область
+        </label>
+    </div>
+</div>
+
+<router-outlet></router-outlet>
+

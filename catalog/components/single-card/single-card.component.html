@@ -1,0 +1,151 @@
+<div class="wrapper wrapper-column" *ngIf="singleCard$ | async as card">
+    <div class="card">
+        <div class="card__back" (click)="goBack()">
+            &larr; Все специалисты
+        </div>
+        <div class="card__row">
+            <div class="card__left card__left_icon-box" [class.round-icon]="role === 'advertiser_cabinet'">
+                <img [src]="setAvatar(card.data.attributes.avatarUrl, role)" alt="icon" class="card__avatar">
+            </div>
+            <div class="card__right">
+                <div class="card__heading">
+                    {{card.data.attributes.companyName}}
+                    <img src="/assets/icons/catalog/shield_agency-status.svg" alt="aproove icon" class="card__heading-icon" *ngIf="!card.data.attributes.blocked">
+                    <img src="/assets/icons/catalog/red-shield.svg" alt="blocked icon" class="card__heading-icon" *ngIf="card.data.attributes.blocked">
+                    <div class="card__heading-btn" (click)="showContacts()" *ngIf="!isContactsShow">
+                        Показать контакты
+                    </div>
+                </div>
+                <div class="card__checked" style="margin-bottom: 35px; margin-top: 7px;" *ngIf="!card.data.attributes.blocked">
+                    <img src="/assets/icons/catalog/checked.svg" alt="" class="card__checked-icon">
+                    Документы проверены
+                </div>
+                <div class="card__info" [class.card__info_builder]="role === 'builder_cabinet'">
+                    <div class="card__info-item">
+                        Опыт работы
+                        <span class="card__info-data">с {{card.data.attributes.experience}} года</span>
+                    </div>
+                    <div class="card__info-item">
+                        На Okar
+                        <span class="card__info-data">{{transformDateToText(card.data.attributes.experience)}} </span>
+                    </div>
+                    <div class="card__info-item" *ngIf="role !== 'builder_cabinet'">
+                        Объектов
+                        <span class="card__info-data">{{transformObjectsText(card.data.attributes.totalObjects)}}</span>
+                    </div>
+                    <div class="card__info-item" *ngIf="role === 'builder_cabinet'">
+                        В продаже
+                        <span class="card__info-data">{{card.data.attributes.totalObjects}} квартир</span>
+                    </div>
+                    <div class="card__info-item" *ngIf="role === 'builder_cabinet'">
+                        Сдано
+                        <span class="card__info-data">{{card.data.attributes.recountOfBuilderObjects.living_complexes_completed_count}} ЖК</span>
+                    </div>
+                    <div class="card__info-item" *ngIf="role === 'builder_cabinet'">
+                        Строится
+                        <span class="card__info-data">{{card.data.attributes.recountOfBuilderObjects.living_complexes_uncompleted_count}} ЖК</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="card__row">
+            <div class="card__left">
+                <div class="card__option">Специализация</div>
+            </div>
+            <div class="card__right">
+              {{skillsText}}
+            </div>
+        </div>
+        <div class="card__row">
+            <div class="card__left">
+                <div class="card__option">Регион работы</div>
+            </div>
+            <div class="card__right">
+               {{card.data.attributes.regionOfWork? 'Работает в ': '-'}}
+            </div>
+        </div>
+        <div class="card__row">
+            <div class="card__left">
+                <div class="card__option" *ngIf="role === 'agency_cabinet'">Агентство</div>
+                <div class="card__option" *ngIf="role === 'advertiser_cabinet'">Тип профиля</div>
+                <div class="card__option" *ngIf="role === 'builder_cabinet'">Застройщик</div>
+            </div>
+            <div class="card__right" *ngIf="role !== 'advertiser_cabinet'">
+               {{card.data.attributes.companyName? card.data.attributes.companyName: '-'}}
+            </div>
+            <div class="card__right" *ngIf="role === 'advertiser_cabinet'">
+                {{card.data.attributes.profileType? 'Частный маклер': '-'}}
+            </div>
+        </div>
+        <div class="card__row">
+            <div class="card__left">
+                <div class="card__option"> {{role === 'advertiser_cabinet'? 'О специалисте': 'О компании'}}</div>
+            </div>
+            <div class="card__right">
+                {{isTrunc? truncateText(card.data.attributes.about): card.data.attributes.about}} <span class="card__trunc-btn" (click)="changeTrunc()">{{isTrunc? 'Читать дальше': 'Скрыть'}}</span>
+            </div>
+        </div>
+        <div class="card__contacts-box" [class.card__contacts-box_grey]="isContactsShow">
+            <img src="/assets/icons/catalog/contacts-image.svg" alt="contacts image" class="card__contacts-image" *ngIf="isContactsShow">
+            <div class="card__row">
+                <div class="card__left">
+                    <div class="card__option">Контакты</div>
+                </div>
+                <div class="card__right card__right-row">
+                    <img src="/assets/icons/catalog/phone.svg" alt="phone icon" class="card__small-icon">
+                    +7 {{isContactsShow? card.data.attributes.phone: truncatePhone(card.data.attributes.phone)}}  
+                </div>
+            </div>
+            <div class="card__row">
+                <div class="card__left">
+                    <div class="card__option">Сайт</div>
+                </div>
+                <div class="card__right card__right-row">
+                    <img src="/assets/icons/catalog/web.svg" alt="web icon" class="card__small-icon">
+                    {{isContactsShow? card.data.attributes.site: '********.**'}}   
+                </div>
+            </div>
+            <div class="card__row">
+                <div class="card__left">
+                    <div class="card__option">Эл.почта</div>
+                </div>
+                <div class="card__right card__right-row">
+                    <img src="/assets/icons/catalog/mail.svg" alt="mail icon" class="card__small-icon">
+                    {{isContactsShow? card.data.attributes.email: '*************.**'}}  
+                </div>
+            </div>
+        </div>
+       
+    </div>
+
+    <!-- form -->
+
+    <div class="message">
+        <div class="message__success" *ngIf="isMessageSucces">
+            <img src="/assets/icons/catalog/succes-icon.svg" alt="succes icon" class="message__icon">
+            <span class="message__success-text">
+                Сообщение успешно отправлено,
+                пожалуйста, ожидайте ответ специалиста
+            </span>
+        </div>
+        <form class="message__form" [formGroup]="form">
+            <div class="message__heading">Свяжитесь со специалистом</div>
+
+            <label for="" class="message__label">Ваше имя</label>
+            <input type="text" class="message__input" placeholder="Введите ваше имя" formControlName="name">
+            <app-err-message [control]="form.get('name')"></app-err-message>
+
+            <label for="" class="message__label">Телефон для связи</label>
+            <input type="text" class="message__input" placeholder="Введите номер телефона" formControlName="phone">
+            <app-err-message [control]="form.get('phone')"></app-err-message>
+
+            <label for="" class="message__label">Задать вопрос</label>
+            <textarea name="" id="" class="message__textarea" placeholder="Например: Ищу квартиру в районе Марьино, есть ли у вас какие-либо варианты " formControlName="message"></textarea>
+            <app-err-message [control]="form.get('message')" [isTextarea]="true"></app-err-message>
+
+            <button class="message__submit" [disabled]="isSubmiting" (click)="sendMessage(card.data.id)">Отправить</button>
+        </form>
+    </div>
+</div>
+

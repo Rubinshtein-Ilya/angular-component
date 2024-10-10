@@ -1,0 +1,36 @@
+<div class="wrapper" >
+    <div class="foundet">
+        Поиск...
+    </div>
+    <div class="skeleton" *ngFor="let item of [1,2,3,4,5,6,7,8,9]">
+        <div class="skeleton__column">
+            <div class="skeleton__icon grey" [class.round-icon]="role === '0'">
+            </div>
+        </div>
+        <div class="skeleton__column">
+            <div class="top">
+                <div class="top__icon">
+                    <img src="/assets/icons/catalog/skeleton-shield.svg" alt="">
+                </div>
+                <div class="top__big-el grey"></div>
+                <div class="top__middle-el grey" *ngIf="role !== '2'"></div>
+            </div>
+            <div class="top__middle-el grey" *ngIf="role === '2'"></div>
+            <div class="skeleton__bottom grey" *ngIf="role !== '2'">
+            </div>
+        </div>
+        <div class="skeleton__column skeleton__column_ml-auto">
+            <div class="skeleton__small-el grey"></div>
+            <div class="skeleton__small-el grey"></div>
+        </div>
+        <div class="skeleton__column skeleton__column_ml" *ngIf="role === '2'">
+            <div class="skeleton__small-el grey"></div>
+            <div class="skeleton__small-el grey"></div>
+        </div>
+        <div class="skeleton__column skeleton__column_ml" *ngIf="role === '2'">
+            <div class="skeleton__extra-small-el grey"></div>
+            <div class="skeleton__extra-small-el grey"></div>
+        </div>
+    </div>
+</div>
+

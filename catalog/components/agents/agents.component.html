@@ -1,0 +1,8 @@
+<app-agency-skeleton [role]="type" *ngIf="isLoading"></app-agency-skeleton>
+<div class="wrapper" *ngIf="agents$ | async as agents">
+    <div class="foundet">
+        Найдено {{agents.meta.recordCount}} риэлторов
+    </div>
+    <app-catalog-cards [entities]="agents.data" [role]="0"></app-catalog-cards>
+</div>
+

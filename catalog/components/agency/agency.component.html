@@ -1,0 +1,8 @@
+<app-agency-skeleton [role]="type" *ngIf="isLoading"></app-agency-skeleton>
+<div class="wrapper" *ngIf="agencies$ | async as agencies">
+    <div class="foundet">
+        Найдено {{agencies.meta.recordCount}} агентств
+    </div>
+    <app-catalog-cards [entities]="agencies.data" [role]="1"></app-catalog-cards>
+</div>
+

@@ -1,0 +1,5 @@
+<div class="errors" [class.errors-textarea]="isTextarea" *ngIf="control?.invalid">
+    <div class="errors__point" [class.errors__point_textarea]="isTextarea"></div>
+    <div class="errors__message" *ngIf="(control?.touched && control?.invalid) && !isTextarea">Обязательное поле</div>
+    <div class="errors__message" *ngIf="(control?.touched && control?.invalid) && isTextarea">Задайте Ваш вопрос</div>
+</div>

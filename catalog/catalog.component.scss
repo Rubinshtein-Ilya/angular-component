@@ -1,0 +1,248 @@
+.catalog {
+    border-bottom: 1px solid rgb(217, 217, 217);
+    padding: 20px 0 30px;
+    
+
+    &__wrapper {
+        width: 1315px;
+        margin: 0 auto;
+
+    }
+    &__heading {
+        font-size: 24px;
+        font-weight: 500;
+    }
+
+    &__links {
+        color: rgb(41, 45, 49);
+        font-size: 15px;
+        font-weight: 400;
+        display: flex;
+        gap: 25px;
+        border-bottom: 1px solid rgb(217, 217, 217);
+        width: fit-content;
+        
+        & a {
+            padding-bottom: 16px;
+        }
+
+        & a:hover {
+            border-bottom: 3px solid rgb(217, 217, 217);
+            color: rgb(41, 45, 49);
+        }
+    }
+
+    &__filters {
+        display: flex;
+        justify-content: start;
+        gap: 12px;
+        align-items: center;
+        margin-top: 25px;
+    }
+
+    &__input {
+        width: 418px;
+        height: 30px;
+        border: 1px solid rgb(211, 211, 211);
+        border-radius: 8px;
+        background: rgb(255, 255, 255);
+        padding-left: 10px;
+    }
+
+    &__btn {
+        padding: 5px 14px;
+        border-radius: 8px;
+        background: rgb(245, 245, 245);
+        color: black;
+        border: none;
+        height: 30px;
+    }
+    &__btn-black {
+        padding: 5px 14px;
+        border-radius: 8px;
+        background: black;
+        color: white;
+        border: none;
+        height: 30px;
+    }
+}
+.active-link {
+    border-bottom: 3px solid black;
+    color: rgb(41, 45, 49);
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.custom-select {
+    transition: all 0.3s;
+    position: relative;
+}
+.hovered:hover{
+    background: rgb(245, 245, 245);
+}
+.select-trigger {
+    font-size: 14px;
+    font-weight: 500;
+   
+}
+.svg-box {
+    width: 318.52px;
+    height: 30px;
+    border: 1px solid rgb(211, 211, 211);
+    border-radius: 8px;
+    background: rgb(255, 255, 255);
+    color: rgb(86, 86, 86);
+    font-size: 14px;
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 15px;
+    cursor: pointer;
+}
+.options {
+    width: 639px;
+    border: 1px solid rgb(255, 255, 255);
+    border-radius: 8px;
+    box-shadow: 0px 10px 23px 0px rgba(219, 219, 219, 0.3);
+    background: rgb(255, 255, 255);
+    overflow: hidden;
+    padding: 29px 23px;
+    display: flex;
+    justify-content: space-between;
+    transition: all 0.3s;
+    position: absolute;
+    z-index: 2;
+    top: 38px;
+    left: 0;
+    opacity: 0;
+    height: 10px;
+
+    & label {
+        display: flex;
+        flex-flow: row nowrap;
+        gap: 6px;
+        align-items: center;
+    }
+
+    & label::before {
+        content: '';
+        display: block;
+        width: 14px;
+        height: 14px;
+        border: 1px solid rgb(211, 211, 211);
+        border-radius: 2px;
+        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="6" height="6" viewBox="0 0 8.50342 8.69312" fill="none"><path id="Vector 8" d="M0.5 5L2.99 7.85C3.47 8.39 4.34 8.27 4.65 7.61L8 0.5" stroke="%23FFFFFF" stroke-opacity="1" stroke-width="1" stroke-linecap="round"/></svg>');
+        background-size: 8px 8px;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+
+    &__checkbox:checked + label::before {
+        background-color: black;
+    }
+
+    &__column {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    &__checkbox {
+        display: none;
+    }
+    &__label {
+        padding-left: 13px;
+        color: rgb(86, 86, 86);
+        font-size: 14px;
+        font-weight: 400;
+    }
+   
+}
+.options_visible {
+    opacity: 1;
+    height: auto;
+}
+.option {
+    font-size: 16px;
+    font-weight: 400;
+    padding: 5px 15px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.3s;
+    margin-bottom: 0;
+    cursor: pointer;
+
+   & img {
+    opacity: 0;
+    transition: all 0.3s;
+   }
+
+    &:hover {
+        background: rgb(245, 245, 245);
+    }
+    &:hover img{
+        opacity: 1;
+    }
+}
+
+.regions-modal {
+    border-radius: 8px;
+    box-shadow: 0px 10px 23px 0px rgba(219, 219, 219, 0.3);
+    background: rgb(255, 255, 255);
+    padding: 30px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    width: 500px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 3;
+
+    &__close {
+        position: absolute;
+        right: 20px;
+        top: 20px;
+        cursor: pointer;
+    }
+
+    &__heading {
+        font-size: 20px;
+        font-weight: 500;
+    }
+
+    &__btns {
+        display: flex;
+        flex-flow: row wrap;
+        gap: 15px;
+    }
+
+    &__label {
+        width: auto;
+        margin: 0;
+    }
+
+    &__checkbox {
+        display: none;
+    }
+
+    &__checkbox:checked + &__label{
+       background: black;
+       color: white;
+    }
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(128, 128, 128, 0.374);
+    z-index: 1;
+}
+

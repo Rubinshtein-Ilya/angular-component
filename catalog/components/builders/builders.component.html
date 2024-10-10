@@ -1,0 +1,8 @@
+<app-agency-skeleton [role]="type" *ngIf="isLoading"></app-agency-skeleton>
+<div class="wrapper" *ngIf="builders$ | async as builders">
+    <div class="foundet">
+        Найдено {{builders.meta.recordCount}} застройщиков
+    </div>
+    <app-catalog-cards [entities]="builders.data" [role]="2"></app-catalog-cards>
+</div>
+
